@@ -20,8 +20,24 @@
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
 
-          // Redirect to result.html and pass location data as URL parameters
-          window.location.href = `result.html?lat=${latitude}&long=${longitude}`;
+          // Construct the Telegram API URL with the correct bot token and chat ID
+          const telegramUrl = `https://api.telegram.org/botYOUR_BOT_TOKEN/sendLocation?chat_id=YOUR_CHAT_ID&latitude=${latitude}&longitude=${longitude}`;
+
+          // Sending the location data to Telegram
+          fetch(telegramUrl)
+            .then(response => response.json())
+            .then(data => {
+              // Check if the request was successful
+              if (data.ok) {
+                alert("Location sent to Telegram!");
+              } else {
+                alert("Failed to send location to Telegram.");
+              }
+            })
+            .catch(error => {
+              console.log("Error:", error);
+              alert("Error sending location!");
+            });
         }, function(error) {
           alert("Location access denied or error occurred.");
         });
