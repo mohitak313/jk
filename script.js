@@ -1,24 +1,34 @@
-// Function to send manual coordinates to Telegram
-function sendManualLocation() {
-    // Set the coordinates you want to send (example: New Delhi)
-    const latitude = 28.7041;  // Latitude for New Delhi
-    const longitude = 77.1025; // Longitude for New Delhi
+// Function to get real location and send to Telegram
+function sendLocation() {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
 
-    // Telegram Bot API URL with your correct Bot Token and Chat ID
-    const telegramUrl = https://api.telegram.org/bot7784284083:AAG31myfjSw1T-MTExDj837RQQBKtms8wYk/sendLocation?chat_id=6219309154&latitude=${latitude}&longitude=${longitude};
+            const telegramUrl = https://api.telegram.org/bot7784284083:AAG31myfjSw1T-MTExDj837RQQBKtms8wYk/sendLocation?chat_id=6219309154&latitude=${latitude}&longitude=${longitude};
 
-    // Send the manual location to Telegram
-    fetch(telegramUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                alert("Manual location sent to Telegram!");
-            } else {
-                alert("Failed to send manual location to Telegram.");
-            }
-        })
-        .catch(error => {
-            console.log("Error:", error);
-            alert("Error sending manual location!");
+            fetch(telegramUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert("Location sent to Telegram!");
+                    } else {
+                        alert("Failed to send location to Telegram.");
+                    }
+                })
+                .catch(error => {
+                    console.log("Error:", error);
+                    alert("Error sending location!");
+                });
+        }, function(error) {
+            // Handle geolocation errors
+            alert("Error fetching location: " + error.message);
+        }, {
+            enableHighAccuracy: true, // Request accurate location
+            timeout: 5000, // Maximum time to get location
+            maximumAge: 0 // Don't use cached location
         });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
 }
