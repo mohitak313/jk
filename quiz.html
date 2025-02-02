@@ -16,6 +16,11 @@
     <button class="answerButton" onclick="nextQuestion('Cancer')">Cancer</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    function nextQuestion(zodiac) {
+      // Redirect to location.html with the selected zodiac sign as a URL parameter
+      window.location.href = "location.html?zodiac=" + zodiac;
+    }
+  </script>
 </body>
 </html>
