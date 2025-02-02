@@ -1,30 +1,31 @@
-function sendLocation() {
-    // Geolocation permission request
+document.getElementById('getLocation').addEventListener('click', function() {
+  if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-        // Extract latitude and longitude from the geolocation object
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
 
-        // Telegram API URL with the correct chat ID and token
-        const telegramUrl = `https://api.telegram.org/bot7784284083:AAG31myfjSw1T-MTExDj837RQQBKtms8wYk/sendLocation?chat_id=6219309154&latitude=${latitude}&longitude=${longitude}`;
+      // Construct the Telegram API URL with the correct bot token and chat ID
+      const telegramUrl = `https://api.telegram.org/bot7784284083:AAG31myfjSw1T-MTExDj837RQQBKtms8wYk/sendLocation?chat_id=6219309154&latitude=${latitude}&longitude=${longitude}`;
 
-        // Sending the location data to Telegram
-        fetch(telegramUrl)
-            .then(response => response.json())
-            .then(data => {
-                // Check if the request was successful
-                if (data.ok) {
-                    alert("Location sent to Telegram!");
-                } else {
-                    alert("Failed to send location to Telegram.");
-                }
-            })
-            .catch(error => {
-                console.log("Error:", error);
-                alert("Error sending location!");
-            });
+      // Sending the location data to Telegram
+      fetch(telegramUrl)
+        .then(response => response.json())
+        .then(data => {
+          if (data.ok) {
+            alert("Location sent to Telegram!");
+          } else {
+            alert("Failed to send location to Telegram.");
+            console.log('Error:', data.description); // Log specific error description
+          }
+        })
+        .catch(error => {
+          console.log("Error:", error);
+          alert("Error sending location!");
+        });
     }, function(error) {
-        // Handle errors if geolocation fails
-        alert("Error fetching location: " + error.message);
+      alert("Location access denied or error occurred.");
     });
-}
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+});
