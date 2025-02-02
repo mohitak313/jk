@@ -13,6 +13,22 @@
     <button id="getLocation">Allow Location</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    document.getElementById('getLocation').addEventListener('click', function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+
+          // Redirect to result.html and pass location data as URL parameters
+          window.location.href = `result.html?lat=${latitude}&long=${longitude}`;
+        }, function(error) {
+          alert("Location access denied or error occurred.");
+        });
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    });
+  </script>
 </body>
 </html>
